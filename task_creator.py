@@ -7,7 +7,7 @@ import os
 
 class TaskCreator():
     def __init__(self, graph, east_or_west_level=True):
-        self.graph = graph
+        self.graph = copy.copy(graph)
         self.probs = copy.copy(self.graph)
         self.used_num = 0
         self.dir_path = []
@@ -15,15 +15,8 @@ class TaskCreator():
         self.east_or_west_level = east_or_west_level
         self.step = 0
 
-    def _create_image(self, word):
-        parser = WordParser(os.path.join('src', 'img'))
-        # variants = os.listdir(os.path.join('src', 'img'))
-        # words = list(map(lambda x: x.replace(".txt",""), variants))
-        # image_num = np.random.randint(len(words))
-        # word = words[image_num]
-        return parser.parse_word(word)[0]
-
     def _dfs(self, x, y):
+        print(x, y)
         self.step += 1
         if self.step > MAX_STEPS:
             return self.dir_path
@@ -65,15 +58,11 @@ class TaskCreator():
 def generate_task(word):
     parser = WordParser(os.path.join('src', 'img'))
     tasks = []
-    for img in parser.parse_word(word):
-        tasks.append(TaskCreator(img).create_task())
+    imgs = parser.parse_word(word)
+    for img in imgs:
+        task_creator = TaskCreator(img)
+        tasks.append(task_creator.create_task())
     return tasks
 
 if __name__ == "__main__":
-    #kontur_test = [[0, 0, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 0, 0]]
-    #test = TaskCreator(kontur_test)
-
-    #task_creator = TaskCreator(kontur_test)
-    #print(task_creator.create_task())
-
-    print(generate_task("11"))
+    print(generate_task("00"))
