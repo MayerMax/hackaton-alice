@@ -27,13 +27,20 @@ class TaskCreator():
         self._dfs(x + DIRECTIONS[choice][0], y + DIRECTIONS[choice][1])
 
     def _create_initial_point(self):
-        return 1, 1
+        width = len(self.graph)
+        height = len(self.graph[0])
+        y = np.random.randint(0, height)
+        x = np.random.randint(0, width)
+        while (self.graph[x][y] == 0):
+            y = np.random.randint(0, height)
+            x = np.random.randint(0, width)
+        return x, y
 
     def create_task(self, mode="EastOrWest"):
         x, y = self._create_initial_point()
         path = self._dfs(x, y)
         if mode == "EastOrWest":
-            return list(map(lambda x: DIRECTIONS_NAME[x], self.dir_path))
+            return GAP.join(list(map(lambda x: DIRECTIONS_NAME[x], self.dir_path))).strip()
 
 
 if __name__ == "__main__":
