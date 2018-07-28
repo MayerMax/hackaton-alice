@@ -16,7 +16,6 @@ class TaskCreator():
         self.step = 0
 
     def _dfs(self, x, y):
-        print(x, y)
         self.step += 1
         if self.step > MAX_STEPS:
             return self.dir_path
@@ -65,4 +64,10 @@ def generate_task(word):
     return tasks
 
 if __name__ == "__main__":
-    print(generate_task("00"))
+    #kontur_test = [[0, 0, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 0, 0]]
+    #test = TaskCreator(kontur_test)
+
+    #task_creator = TaskCreator(kontur_test)
+    #print(task_creator.create_task())
+
+    print(generate_task("01"))
